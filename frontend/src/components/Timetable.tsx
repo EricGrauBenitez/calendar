@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, momentLocalizer, EventProps } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
+import AddEventForm from './AddEventForm';
 
 const localizer = momentLocalizer(moment);
 
 const Timetable: React.FC = () => {
-  const events: EventProps[] = [
-    {
-      title: 'Reunión',
-      start: new Date(2023, 10, 20, 10, 0),
-      end: new Date(2023, 10, 20, 12, 0),
-    },
-  ];
+  const [events, setEvents] = useState([]);
+
+  const handleAddEvent = (newEvent) => {
+    setEvents([...events, newEvent]);
+  };
+  
 
   return (
     <div>
@@ -24,6 +24,8 @@ const Timetable: React.FC = () => {
         endAccessor="end"
         style={{ height: 500 }}
       />
+       <h2>Agregar Evento</h2>
+      <AddEventForm onAddEvent={handleAddEvent} />
     </div>
   );
 };
