@@ -2,16 +2,18 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 export interface Event extends Document {
   title?: string;
-  start: Date;
+  date: Date;
   color?: string;
 }
 
+export interface EventModel extends Event, Document {}
+
 const EventSchema: Schema = new Schema({
-  title: { type: String, default: 'Evento ' },
-  start: { type: Date, required: true },
+  title: { type: String, default: 'Evento' },
+  date: { type: Date, required: true },
   color: { type: String, default: '#ffffff' },
 });
 
-const EventModel = mongoose.model<Event>('Event', EventSchema);
+const Event = mongoose.model<EventModel>('Event', EventSchema);
 
-export default EventModel;
+export default Event;
