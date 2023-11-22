@@ -1,39 +1,31 @@
 import React, { useState } from 'react';
 
-const AddEventForm = ({ onAddEvent }) => {
+interface EventData {
+  title: string;
+  date: string;
+  color: string;
+}
+
+interface AddEventFormProps {
+  onSubmit: (data: EventData) => void;
+}
+
+const AddEventForm: React.FC<AddEventFormProps> = ({ onSubmit }) => {
   const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
+  const [date, setDate] = useState('');
+  const [color, setColor] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (title.trim() === '' || isNaN(startDate.getTime())) {
-      alert('Please enter a valid value');
-      return;
-    }
-
-    const newEvent = {
-      title,
-      start: startDate,
-    };
-    onAddEvent(newEvent);
-    setTitle('');
-    setStartDate(new Date());
+    onSubmit({ title, date, color });
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Título del evento"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        type="datetime-local"
-        value={startDate.toISOString().slice(0, 16)}
-        onChange={(e) => setStartDate(new Date(e.target.value))}
-      />
-      <button type="submit">Agregar Evento</button>
+      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título" />
+      <input type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Fecha" />
+      <input type="color" value={color} onChange={(e) => setColor(e.target.value)} />
+      <button type="submit">Crear Evento</button>
     </form>
   );
 };
