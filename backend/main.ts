@@ -1,7 +1,6 @@
 import express from 'express';
 const cors = require('cors');
 import eventsRoutes from './routes/events';
-import Event, { EventModel } from './models/Event';
 const connectDB = require('./db');
 
 

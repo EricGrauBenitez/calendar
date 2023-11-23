@@ -6,6 +6,7 @@ const App = () => {
     <div>
       <h1>¡Mi Aplicación de Calendario!</h1>
       <EventSubmit />
+      <Timetable />
     </div>
   );
 };
