@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer, EventProps } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
-import EventFetcher from './EventFetcher';
+import EventFetcher from '../components/EventFetcher';
+import NavigateButton from '../components/NavigateButton';
 
 const localizer = momentLocalizer(moment);
 
@@ -44,6 +45,7 @@ const Timetable: React.FC = () => {
         style={{ height: 500 }}
         eventPropGetter={eventStyleGetter}
       />
+      <NavigateButton to="/event-submit" label="Crear evento" />
       {todayEvents.length > 0 && (
         <div>
           <h3>Eventos para hoy:</h3>
