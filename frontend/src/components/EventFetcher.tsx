@@ -4,6 +4,7 @@ interface Event {
   title: string;
   date: string; 
   color: string;
+  description?: string;
 }
 
 const EventFetcher: React.FC<{ onDataLoad: (events: Event[]) => void }> = ({ onDataLoad }) => {
@@ -22,11 +23,11 @@ const EventFetcher: React.FC<{ onDataLoad: (events: Event[]) => void }> = ({ onD
       }
     };
 
-    fetchEvents(); // Llamada inicial al cargar el componente
+    fetchEvents(); 
 
   }, []);
 
-  return null; // No renderizamos nada en este componente
+  return null; 
 };
 
 export default EventFetcher;
