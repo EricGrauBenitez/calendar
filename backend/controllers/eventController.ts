@@ -13,8 +13,8 @@ export const getAllEvents = async (req: Request, res: Response): Promise<void> =
 
 // Controlador para crear un nuevo evento
 export const createEvent = async (req: Request, res: Response): Promise<void> => {
-  const { title, date, color, description } = req.body;
-  const newEvent: EventModel = new Event({ title, date, color, description });
+  const { title, start, end, color, description } = req.body;
+  const newEvent: EventModel = new Event({ title, start, end, color, description });
 
   try {
     const savedEvent = await newEvent.save();
@@ -27,12 +27,12 @@ export const createEvent = async (req: Request, res: Response): Promise<void> =>
 // Controlador para actualizar un evento por su ID
 export const updateEvent = async (req: Request, res: Response): Promise<void> => {
     const eventId = req.params.id;
-    const { title, date, color, description } = req.body;
+    const { title, start, end, color, description } = req.body;
   
     try {
       const updatedEvent = await Event.findByIdAndUpdate(
         eventId,
-        { title, date, color, description },
+        { title, start, end, color, description },
         { new: true }
       );
   

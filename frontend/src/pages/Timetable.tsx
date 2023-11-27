@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Calendar, momentLocalizer, EventProps } from 'react-big-calendar';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import EventFetcher from '../components/EventFetcher';
 import NavigateButton from '../components/NavigateButton';
+import TodayEvents from '../components/TodayEvents';
 
 const localizer = momentLocalizer(moment);
 
@@ -12,11 +13,11 @@ const Timetable: React.FC = () => {
   const [todayEvents, setTodayEvents] = useState<any[]>([]);
 
   useEffect(() => {
-    const today = moment().startOf('day'); // Obtener la fecha actual sin tiempo
+    const today = moment().startOf('day'); 
 
     const filteredEvents = events.filter((event) => {
-      const eventDate = moment(event.date).startOf('day'); // Fecha del evento sin tiempo
-      return eventDate.isSame(today); // Comparar si el evento es hoy
+      const eventDate = moment(event.date).startOf('day'); 
+      return eventDate.isSame(today); 
     });
 
     setTodayEvents(filteredEvents);
@@ -46,16 +47,7 @@ const Timetable: React.FC = () => {
         eventPropGetter={eventStyleGetter}
       />
       <NavigateButton to="/event-submit" label="Crear evento" />
-      {todayEvents.length > 0 && (
-        <div>
-          <h3>Eventos para hoy:</h3>
-          <ul>
-            {todayEvents.map((event, index) => (
-              <li key={index}>{event.title}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <TodayEvents /> 
     </div>
   );
 };
