@@ -6,6 +6,8 @@ const router = Router();
 // Ruta para obtener todos los eventos
 router.get('/events', eventController.getAllEvents);
 
+router.get('/events/:id', eventController.getEvent);
+
 // Ruta para crear un nuevo evento
 router.post('/events', eventController.createEvent);
 

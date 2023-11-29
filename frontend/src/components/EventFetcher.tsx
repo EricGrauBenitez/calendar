@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 
 interface Event {
-  title: string;
-  date: string; 
-  color: string;
+  title?: string;
+  start: string;
+  end?: string;  
+  color?: string;
   description?: string;
 }
 

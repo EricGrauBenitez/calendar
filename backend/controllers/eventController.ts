@@ -6,8 +6,26 @@ export const getAllEvents = async (req: Request, res: Response): Promise<void> =
   try {
     const events = await Event.find();
     res.json(events);
-} catch (error: any) { // Define 'error' como cualquier tipo
-    res.status(500).json({ message: (error as Error).message }); // Hace un cast a 'Error' para acceder a 'message'
+} catch (error: any) { 
+    res.status(500).json({ message: (error as Error).message }); 
+  }
+};
+
+// Controlador para obtener un evento
+
+export const getEvent = async (req: Request, res: Response) => {
+  try {
+    const eventId = req.params.id;
+    const event = await Event.findById(eventId); 
+    
+    if (!event) {
+      return res.status(404).json({ message: 'Evento no encontrado' });
+    }
+    
+    res.status(200).json(event); 
+  } catch (error) {
+    console.error('Error al obtener el evento:', error);
+    res.status(500).json({ message: 'Error al obtener el evento' });
   }
 };
 

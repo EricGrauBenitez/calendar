@@ -5,12 +5,19 @@ import moment from 'moment';
 import EventFetcher from '../components/EventFetcher';
 import NavigateButton from '../components/NavigateButton';
 import TodayEvents from '../components/TodayEvents';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSelectedEvent } from '../actions/eventActions';
+
 
 const localizer = momentLocalizer(moment);
 
 const Timetable: React.FC = () => {
   const [events, setEvents] = useState<any[]>([]);
   const [todayEvents, setTodayEvents] = useState<any[]>([]);
+  const dispatch = useDispatch();
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const today = moment().startOf('day'); 
@@ -33,6 +40,14 @@ const Timetable: React.FC = () => {
     };
     return { style };
   };
+
+  // const handleEventClick = (event: any) => {
+  //   navigate(`/events/${event.id}`); // Redireccionar al evento específico al hacer clic
+  // };
+  const handleEventClick = (eventId: string) => {
+    dispatch(setSelectedEvent(eventId));
+    // Aquí puedes redirigir al usuario al componente de EventDetails
+  };
   
   return (
     <div>
@@ -45,6 +60,7 @@ const Timetable: React.FC = () => {
         endAccessor="date"
         style={{ height: 500 }}
         eventPropGetter={eventStyleGetter}
+        onSelectEvent={handleEventClick}
       />
       <NavigateButton to="/event-submit" label="Crear evento" />
       <TodayEvents /> 
