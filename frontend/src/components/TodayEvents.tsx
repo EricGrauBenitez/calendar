@@ -10,13 +10,14 @@ const TodayEvents: React.FC = () => {
     const today = moment().startOf('day'); 
 
     const filteredEvents = events.filter((event) => {
-      const eventDate = moment(event.date).startOf('day'); 
-      return eventDate.isSame(today); 
+      const eventStart = moment.utc(event.start).startOf('day'); 
+      return eventStart.isSame(today, 'day'); 
     });
 
     setTodayEvents(filteredEvents);
 
   }, [events]);
+  
 
   
   return (

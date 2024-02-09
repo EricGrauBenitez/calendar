@@ -1,27 +1,20 @@
-// EventDetails.tsx
-
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEventId } from '../actions/eventActions';
+import { fetchEventDetails } from '../actions/eventActions'; // Importa la acción para obtener los detalles del evento
 
 const EventDetails = () => {
   const dispatch = useDispatch();
   const eventId = useSelector((state: any) => state.event.eventId);
   const selectedEvent = useSelector((state: any) => state.event.selectedEvent);
-  console.log(eventId);
   
-
+  console.log(selectedEvent);
+  
   useEffect(() => {
-    // Aquí puedes utilizar el eventId para realizar acciones
-    console.log('ID del Evento:', eventId);
-    // Llamar a la función que recupera los detalles del evento con el ID
-    // fetchEventDetails(eventId);
-  }, [eventId]);
-
-  const handleEventClick = (eventId: string) => {
-    // Ejemplo de cómo se actualiza el ID del evento en Redux
-    dispatch(setEventId(eventId));
-  };
+    if (eventId) {
+      // Llamar a la función que recupera los detalles del evento con el ID
+      dispatch(fetchEventDetails(eventId)); // Dispara la acción para obtener los detalles del evento
+    }
+  }, [dispatch, eventId]);
 
   return (
     <div>
@@ -36,9 +29,6 @@ const EventDetails = () => {
           <p>Fecha de Finalización: {selectedEvent.end}</p>
         </div>
       )}
-      
-      <button onClick={() => handleEventClick('ID_DEL_EVENTO')}>Seleccionar Evento</button>
-      
     </div>
   );
 };

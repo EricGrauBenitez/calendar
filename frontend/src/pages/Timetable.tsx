@@ -46,6 +46,7 @@ const Timetable: React.FC = () => {
   // };
   const handleEventClick = (eventId: string) => {
     dispatch(setSelectedEvent(eventId));
+    navigate(`/event/${eventId}`);
     // Aquí puedes redirigir al usuario al componente de EventDetails
   };
   
